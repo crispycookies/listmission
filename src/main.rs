@@ -1,3 +1,5 @@
+use std::fs::File;
+use std::io::Write;
 use regex::Regex;
 
 fn main() {
@@ -5,5 +7,7 @@ fn main() {
     let regex = Regex::new(r"([\\/.]+)").expect("Invalid regex");
     let splits: Vec<_> = regex.split(&*args[1]).into_iter().collect();
 
-    println!("{}",splits[splits.len()-2])
+
+    let mut file = File::create("name").unwrap();
+    file.write_all(splits[splits.len() - 2].as_ref()).unwrap();
 }
